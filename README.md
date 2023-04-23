@@ -219,7 +219,7 @@ Output:
   }
 }
 ```
-## Avanced Filtering
+## Advanced Filtering
 This API allows user to Filter data based on
 ```bash
 assetclass
@@ -268,6 +268,17 @@ FILTER BY PRICE URL:
 ```bash
 loaclhost:8000/get-trade/price?minprice=20.00&maxprice=80.00
 ```
+Code:
+```bash
+@app.get("/get-trade/price")
+def price(minprice:float,maxprice:float):
+    data = {}
+    for item_id in inventory:
+        if inventory[item_id]["trade_details"]["price"] >= minprice and inventory[item_id]["trade_details"]["price"] <= maxprice:
+            data[item_id] = inventory[item_id]
+
+    return data
+```
 This will return all the data which has price range of
 ```bash
 20.00 <= data <= 80.00
@@ -296,6 +307,17 @@ FILTER BY TRADE TYPE URL:
 ```bash
 loaclhost:8000/get-trade/tradetype?name=Sell
 ```
+Code:
+```bash
+@app.get("/get-trade/tradetype")
+def tradetype(name:str):
+    data = {}
+    for item_id in inventory:
+        if inventory[item_id]["trade_details"]["buySellIndicator"] == name:
+            data[item_id]=inventory[item_id]
+
+    return data
+```
 This will return all the data which tradetype value of sell like this
 
 ```bash
@@ -316,7 +338,7 @@ This will return all the data which tradetype value of sell like this
   }
 }
 ```
-## Post Item ("/crete-item/{item_id}")
+## Post Item ("/create-item/{item_id}")
 
 This API allows user to create and post data of their own based on pydantic class model. It will check whether the data at item id is present or not if not it will create the item.
 
