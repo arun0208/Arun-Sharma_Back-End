@@ -1,6 +1,5 @@
 from fastapi import FastAPI
 import datetime as dt
-from fastapi.encoders import jsonable_encoder
 from typing import Optional
 from pydantic import BaseModel, Field
 from fastapi_pagination import Page, add_pagination, paginate
